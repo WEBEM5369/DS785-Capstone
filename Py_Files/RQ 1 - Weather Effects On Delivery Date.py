@@ -40,20 +40,22 @@ def graph_it(y_true,y_pred,title="Graph",RQ=1):
 # do the different graphing
     plt.rcParams.update({'font.sans-serif':'Arial'})
 
-    if (RQ == 1):
-        lables = np.array(False,True)
-    else: labels = np.array(['More_Activity','Same_Activity','Less_Activity'])
-    
-    #confusion matrix
-    cm = confusion_matrix(y_true,y_pred,labels=labels)
-    disp = ConfusionMatrixDisplay(confusion_matrix=cm,display_labels=labels)
+    #set up labels for confusion matrix
+    if (RQ != 1):
+        labels = np.array(['More_Activity','Same_Activity','Less_Activity'])
+        cm = confusion_matrix(y_true,y_pred,labels=labels)
+        disp = ConfusionMatrixDisplay(confusion_matrix=cm,display_labels=labels)
+    else: 
+        cm = confusion_matrix(y_true,y_pred)
+        disp = ConfusionMatrixDisplay(confusion_matrix=cm,display_labels=['False','True'])
+
     disp.plot(cmap='Greys',colorbar=False)
     plt.title(title)            
     plt.show()
 
 def graph_feature(names,fi,graph_title,thresh=5,tree=True,add_label=True):
     sort_key = fi.argsort()
-    plt.figure(figsize=(5,10))
+    plt.figure(figsize=(5,9))
     bars = plt.barh(names[sort_key],fi[sort_key],color='lightgrey',edgecolor='black')
     plt.title(graph_title)
     
@@ -97,7 +99,7 @@ def graph_feature(names,fi,graph_title,thresh=5,tree=True,add_label=True):
 
 #load dataset into a dataframe and confirm values
 full_start = timer()
-df_raw = pd.read_csv('DataSets\Savage_Daily_Ticket_Count_Weather_Export.csv')
+df_raw = pd.read_csv('DataSets\\Savage_Daily_Ticket_Count_Weather_Export.csv')
 df_raw.head(12)
 
 
@@ -289,7 +291,7 @@ def run_cross_validation_on_regression_RF(X, Y,graph=False,graph_title='Regressi
     hyper_params = {
         'n_estimators': [200, 400, 600, 800, 1000],
         'max_depth': (1, 9),
-        'criterion': ['squared_error'], #can use poisson if not negative
+        'criterion': ['squared_error','poisson'], #can use poisson if not negative
         'max_features' : [.250,.3333,.375]
     }
     cv = KFold(n_splits = 5,shuffle=True,random_state=5440)   #set random_state to make results repeatable
@@ -435,15 +437,6 @@ def run_ridge_regression(X,Y,graph=False,graph_title='Regression Graph'):
         graph_feature(X.columns,model.coef_,graph_title,tree=False)
     
     return(rmse_test,r2_test)
-
-
-# In[ ]:
-
-
-start = timer()
-linear_rmse,linear_r2 = run_linear(xc_part,yc,graph=True,graph_title="Weather Only - Linear Regression - Partial")
-end = timer()
-print(f'Linear Model on Data Subset Complete in {end-start} seconds')
 
 
 # In[ ]:
@@ -634,11 +627,11 @@ def run_logistic(X,Y,graph=False,graph_title='Classification Graph'):
     }    
     cv = StratifiedKFold(n_splits = 10,shuffle=True,random_state=5440)   #set random_state to make results repeatable
     search = BayesSearchCV(
-        estimator=LogisticRegressionCV(tol=1),
+        estimator=LogisticRegressionCV(),
         search_spaces=hyper_params,
         n_jobs=-1,
         cv=cv,
-        n_iter=100,
+        n_iter=25,
         scoring="accuracy",
         verbose=0,
         random_state=5440
@@ -654,17 +647,17 @@ def run_logistic(X,Y,graph=False,graph_title='Classification Graph'):
     #now that the best parameters are found, split the data, run on a test dataset and then predict results
     x_train,x_test,y_train,y_test = train_test_split(x_scaled,Y,test_size=.24,random_state=5440)
     model = LogisticRegressionCV(cv=cv,fit_intercept=best_params['fit_intercept']
-                                 ,solver=best_params['solver'],scoring='accuracy',n_jobs=-1,tol=.001)
+                                 ,solver=best_params['solver'],scoring='accuracy',n_jobs=-1)
     model.fit(x_train,y_train)
     pred_test = model.predict(x_test)
     test_score = model.score(x_test,y_test)
-    test_auc = roc_auc_score(y_test,model.predict_proba(x_test))      
-    class_groups = len(model.coef_)    
+    test_auc = roc_auc_score(y_test,model.predict(x_test))    
+    class_groups = len(model.coef_)  
       
     if graph:
         graph_it(y_test,pred_test,graph_title,RQ=1)
         for cg in range(class_groups):
-            graph_feature(X.columns,model.coef_[cg],graph_title + ' ("'+ model.classes_[cg]+ '" class)',tree=False)
+            graph_feature(X.columns,model.coef_[cg],graph_title + ' ("'+ str(model.classes_[cg])+ '" class)',tree=False)
 
     return(test_score,test_auc)
 
@@ -703,8 +696,8 @@ def run_cross_validation_on_classification_RF(X, Y,graph=False,graph_title='Clas
     model.fit(x_train,y_train)
     pred_test = model.predict(x_test)
     test_score = model.score(x_test,y_test)
-    test_auc = roc_auc_score(y_test,model.predict_proba(x_test), multi_class='ovr', average='weighted')     
-      
+    test_auc = roc_auc_score(y_test,model.predict(x_test))    
+    
     if graph:
         graph_it(y_test,pred_test,graph_title,RQ=1)
         graph_feature(X.columns,model.feature_importances_,graph_title)
@@ -745,10 +738,10 @@ def run_cross_validation_on_classification_Boost(X, Y,scoring='accuracy',graph=F
     model.fit(x_train,y_train)
     pred_test = model.predict(x_test)
     test_score = model.score(x_test,y_test)
-    test_auc = roc_auc_score(y_test,model.predict_proba(x_test), multi_class='ovr', average='weighted')     
-      
+    test_auc = roc_auc_score(y_test,model.predict(x_test))    
+    
     if graph:
-        graph_it(y_test,pred_test,graph_title,RQ=4)
+        graph_it(y_test,pred_test,graph_title,RQ=1)
         graph_feature(X.columns,model.feature_importances_,graph_title)
 
     return(test_score,test_auc)
@@ -793,16 +786,30 @@ def run_RDA_classification(X,Y,graph=False,graph_title='Classification Graph'):
     #find the worth of the model  
     pred_test = cross_val_predict(model,x_test,y_test,cv=5,n_jobs=-1)
     pred_score = cross_val_score(model,x_test,y_test,cv=5,n_jobs=-1)
-    test_auc = roc_auc_score(y_test,model.predict_proba(x_test))     
-    
-    class_groups = len(model.coef_)
+    test_auc = roc_auc_score(y_test,model.predict(x_test))       
+    class_groups = len(model.coef_)    
     
     if graph:
         graph_it(y_test,pred_test,graph_title,RQ=1)
         for cg in range(class_groups):
-            graph_feature(X.columns,model.coef_[cg],graph_title + ' ("'+ model.classes_[cg]+ '" class)',tree=False)
-         
+            graph_feature(X.columns,model.coef_[cg],graph_title + ' ("'+ str(model.classes_[cg])+ '" class)',tree=False)
+
+        
     return(pred_score.mean(),test_auc)
+
+
+# In[ ]:
+
+
+start = timer()
+rf_accuracy_part,rf_auc_part = run_cross_validation_on_classification_RF(xl_part,yl,graph=True,graph_title="Weather Only - Random Forests - Partial")
+end = timer()
+print(f'Random Forest Model on Data Subset Complete in {end-start} seconds')
+
+start = timer()
+boost_accuracy_full,boo_auc_full = run_cross_validation_on_classification_Boost(xl_full,yl,graph=True,graph_title="Weather Only - Boosted Trees - Full")
+end = timer()
+print(f'Boosted Trees Model on Full Dataset Complete in {end-start} seconds')
 
 
 # In[ ]:
