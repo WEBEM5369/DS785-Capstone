@@ -1,0 +1,74 @@
+Weather Only - Linear Regression - Partial
+OrderedDict([('fit_intercept', True), ('positive', False)])
+Weather Only - Linear Regression - Partial
+OrderedDict([('fit_intercept', True), ('positive', False)])
+Weather Only - Linear Regression - Sig P
+OrderedDict([('fit_intercept', True), ('positive', False)])
+Weather Only - Lasso/ENet Regression - Full
+OrderedDict([('alpha', 0.1), ('fit_intercept', True), ('l1_ratio', 0.01)])
+Weather Only - Ridge Regression - Partial
+500.0
+Weather Only - Random Forests - Partial
+OrderedDict([('criterion', 'squared_error'), ('max_depth', 5), ('max_features', 0.25), ('n_estimators', 1000)])
+Weather Only - Boosted Trees - Full
+OrderedDict([('criterion', 'friedman_mse'), ('loss', 'squared_error'), ('max_depth', 1), ('max_features', 0.25), ('n_estimators', 500)])
+Weather Only - Boosted Trees - Partial
+OrderedDict([('criterion', 'friedman_mse'), ('loss', 'squared_error'), ('max_depth', 1), ('max_features', 0.25), ('n_estimators', 500)])
+Weather Only - Linear Regression 2 - Partial
+OrderedDict([('fit_intercept', True), ('positive', False)])
+Weather Only - Linear Regression 2 - Sig P
+OrderedDict([('fit_intercept', True), ('positive', False)])
+Weather Only - Lasso/ENet Regression 2 - Full
+OrderedDict([('alpha', 0.01), ('fit_intercept', True), ('l1_ratio', 0.9)])
+Weather Only - Ridge Regression 2 - Partial
+500.0
+Weather Only - Linear Regression - Partial
+OrderedDict([('fit_intercept', True), ('positive', False)])
+Weather Only - Linear Regression - Partial
+OrderedDict([('fit_intercept', True), ('positive', False)])
+Weather Only - Linear Regression - Sig P
+OrderedDict([('fit_intercept', True), ('positive', False)])
+Weather Only - Lasso/ENet Regression - Full
+OrderedDict([('alpha', 0.1), ('fit_intercept', True), ('l1_ratio', 0.01)])
+Weather Only - Ridge Regression - Partial
+500.0
+Weather Only - Random Forests - Partial
+OrderedDict([('criterion', 'squared_error'), ('max_depth', 5), ('max_features', 0.25), ('n_estimators', 1000)])
+Weather Only - Boosted Trees - Full
+OrderedDict([('criterion', 'squared_error'), ('loss', 'squared_error'), ('max_depth', 1), ('max_features', 0.25), ('n_estimators', 500)])
+Weather Only - Boosted Trees - Partial
+OrderedDict([('criterion', 'friedman_mse'), ('loss', 'squared_error'), ('max_depth', 1), ('max_features', 0.25), ('n_estimators', 500)])
+Weather Only - Linear Regression 2 - Partial
+OrderedDict([('fit_intercept', True), ('positive', False)])
+Weather Only - Linear Regression 2 - Sig P
+OrderedDict([('fit_intercept', True), ('positive', False)])
+Weather Only - Lasso/ENet Regression 2 - Full
+OrderedDict([('alpha', 0.01), ('fit_intercept', True), ('l1_ratio', 0.9)])
+Weather Only - Ridge Regression 2 - Partial
+500.0
+Weather Only - Random Forests 2 - Partial
+OrderedDict([('criterion', 'squared_error'), ('max_depth', 3), ('max_features', 0.375), ('n_estimators', 800)])
+Weather Only - Boosted Trees 2 - Full
+OrderedDict([('criterion', 'friedman_mse'), ('loss', 'squared_error'), ('max_depth', 1), ('max_features', 0.25), ('n_estimators', 500)])
+Weather Only - Boosted Trees 2 - Partial
+OrderedDict([('criterion', 'squared_error'), ('loss', 'squared_error'), ('max_depth', 1), ('max_features', 0.25), ('n_estimators', 500)])
+Weather Only - Logistic Regression - Full
+OrderedDict([('fit_intercept', True), ('solver', 'newton-cg')])
+Weather Only - Logistic Regression - Full
+OrderedDict([('fit_intercept', True), ('solver', 'newton-cg')])
+Weather Only - Linear Regression - Partial
+OrderedDict([('fit_intercept', True), ('positive', False)])
+Weather Only - Linear Regression - Partial
+OrderedDict([('fit_intercept', True), ('positive', False)])
+Weather Only - Linear Regression - Sig P
+OrderedDict([('fit_intercept', True), ('positive', False)])
+Weather Only - Linear Regression - Partial
+OrderedDict([('fit_intercept', True), ('positive', False)])
+Weather Only - Linear Regression - Partial
+OrderedDict([('fit_intercept', True), ('positive', False)])
+Weather Only - Linear Regression - Sig P
+OrderedDict([('fit_intercept', True), ('positive', False)])
+Weather Only - Logistic Regression - Full
+OrderedDict([('fit_intercept', True), ('solver', 'sag')])
+Weather Only - Logistic Regression - Full
+OrderedDict([('fit_intercept', True), ('solver', 'sag')])

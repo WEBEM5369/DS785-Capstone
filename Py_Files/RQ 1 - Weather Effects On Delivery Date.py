@@ -97,7 +97,7 @@ def graph_feature(names,fi,graph_title,thresh=5,tree=True,add_label=True):
 
 #load dataset into a dataframe and confirm values
 full_start = timer()
-df_raw = pd.read_csv('DataSets\\Savage_Daily_Ticket_Count_Weather_Export.csv')
+df_raw = pd.read_csv('DataSets\Savage_Daily_Ticket_Count_Weather_Export.csv')
 df_raw.head(12)
 
 
@@ -264,7 +264,8 @@ def run_linear(X,Y,graph=False,graph_title='Regression Graph'):
     x_scaled = scaler.fit_transform(X)       
     search.fit(x_scaled,Y)    
     best_params = search.best_params_
-    print(best_params)
+    print(graph_title,file=open('RQ1_hyperparameters','a'))
+    print(best_params,file=open('RQ1_hyperparameters','a'))
     
     #X = predictors, Y = response, log determines if we are using linear or logistic regression
     x_train,x_test,y_train,y_test = train_test_split(x_scaled,Y,test_size=.24,random_state=5440)   
@@ -288,7 +289,7 @@ def run_cross_validation_on_regression_RF(X, Y,graph=False,graph_title='Regressi
     hyper_params = {
         'n_estimators': [200, 400, 600, 800, 1000],
         'max_depth': (1, 9),
-        'criterion': ['squared_error','poisson'], #can use poisson if not negative
+        'criterion': ['squared_error'], #can use poisson if not negative
         'max_features' : [.250,.3333,.375]
     }
     cv = KFold(n_splits = 5,shuffle=True,random_state=5440)   #set random_state to make results repeatable
@@ -305,7 +306,8 @@ def run_cross_validation_on_regression_RF(X, Y,graph=False,graph_title='Regressi
     
     search.fit(X,Y)    
     best_params = search.best_params_
-    print(best_params)
+    print(graph_title,file=open('RQ1_hyperparameters','a'))
+    print(best_params,file=open('RQ1_hyperparameters','a'))
     
     #now that the best parameters are found, split the data, run on a test dataset and then predict results
     x_train,x_test,y_train,y_test = train_test_split(X,Y,test_size=.24,random_state=5440)
@@ -347,7 +349,8 @@ def run_cross_validation_on_regression_Boost(X, Y,graph=False,graph_title='Regre
     
     search.fit(X,Y)    
     best_params = search.best_params_
-    print(best_params)
+    print(graph_title,file=open('RQ1_hyperparameters','a'))
+    print(best_params,file=open('RQ1_hyperparameters','a'))
     
     #now that the best parameters are found, split the data, run on a test dataset and then predict results
     x_train,x_test,y_train,y_test = train_test_split(X,Y,test_size=.24,random_state=5440)
@@ -389,7 +392,8 @@ def run_enet_regression(X,Y,graph=False,graph_title='Regression Graph'):
     x_scaled = scaler.fit_transform(X)       
     search.fit(x_scaled,Y)    
     best_params = search.best_params_
-    print(best_params)
+    print(graph_title,file=open('RQ1_hyperparameters','a'))
+    print(best_params,file=open('RQ1_hyperparameters','a'))
     
     #X = predictors, Y = response, log determines if we are using linear or logistic regression
     x_train,x_test,y_train,y_test = train_test_split(x_scaled,Y,test_size=.24,random_state=5440)   
@@ -417,7 +421,8 @@ def run_ridge_regression(X,Y,graph=False,graph_title='Regression Graph'):
     cv = RepeatedKFold(n_splits = 5,n_repeats=75,random_state=5440)  
     model = RidgeCV(alphas=[.0001,.0005,.001,.005,.01,.05,.1,.5,1.0,5,10,50,100,500,1000],cv=cv)
     model.fit(x_scaled,Y)
-    print(model.alpha_)
+    print(graph_title,file=open('RQ1_hyperparameters','a'))
+    print(model.alpha_,file=open('RQ1_hyperparameters','a'))
     
     #X = predictors, Y = response, log determines if we are using linear or logistic regression
     x_train,x_test,y_train,y_test = train_test_split(x_scaled,Y,test_size=.24,random_state=5440)   
@@ -430,6 +435,15 @@ def run_ridge_regression(X,Y,graph=False,graph_title='Regression Graph'):
         graph_feature(X.columns,model.coef_,graph_title,tree=False)
     
     return(rmse_test,r2_test)
+
+
+# In[ ]:
+
+
+start = timer()
+linear_rmse,linear_r2 = run_linear(xc_part,yc,graph=True,graph_title="Weather Only - Linear Regression - Partial")
+end = timer()
+print(f'Linear Model on Data Subset Complete in {end-start} seconds')
 
 
 # In[ ]:
@@ -620,11 +634,11 @@ def run_logistic(X,Y,graph=False,graph_title='Classification Graph'):
     }    
     cv = StratifiedKFold(n_splits = 10,shuffle=True,random_state=5440)   #set random_state to make results repeatable
     search = BayesSearchCV(
-        estimator=LogisticRegressionCV(),
+        estimator=LogisticRegressionCV(tol=1),
         search_spaces=hyper_params,
         n_jobs=-1,
         cv=cv,
-        n_iter=50,
+        n_iter=100,
         scoring="accuracy",
         verbose=0,
         random_state=5440
@@ -634,12 +648,13 @@ def run_logistic(X,Y,graph=False,graph_title='Classification Graph'):
     x_scaled = scaler.fit_transform(X)       
     search.fit(x_scaled,Y)    
     best_params = search.best_params_
-    print(best_params)
+    print(graph_title,file=open('RQ1_hyperparameters','a'))
+    print(best_params,file=open('RQ1_hyperparameters','a'))
     
     #now that the best parameters are found, split the data, run on a test dataset and then predict results
     x_train,x_test,y_train,y_test = train_test_split(x_scaled,Y,test_size=.24,random_state=5440)
     model = LogisticRegressionCV(cv=cv,fit_intercept=best_params['fit_intercept']
-                                 ,solver=best_params['solver'],scoring='accuracy',n_jobs=-1)
+                                 ,solver=best_params['solver'],scoring='accuracy',n_jobs=-1,tol=.001)
     model.fit(x_train,y_train)
     pred_test = model.predict(x_test)
     test_score = model.score(x_test,y_test)
@@ -647,7 +662,7 @@ def run_logistic(X,Y,graph=False,graph_title='Classification Graph'):
     class_groups = len(model.coef_)    
       
     if graph:
-        graph_it(y_test,pred_test,graph_title,RQ=4)
+        graph_it(y_test,pred_test,graph_title,RQ=1)
         for cg in range(class_groups):
             graph_feature(X.columns,model.coef_[cg],graph_title + ' ("'+ model.classes_[cg]+ '" class)',tree=False)
 
@@ -678,7 +693,8 @@ def run_cross_validation_on_classification_RF(X, Y,graph=False,graph_title='Clas
     
     search.fit(X,Y)    
     best_params = search.best_params_
-    print(best_params)
+    print(graph_title,file=open('RQ1_hyperparameters','a'))
+    print(best_params,file=open('RQ1_hyperparameters','a'))
     
     #now that the best parameters are found, split the data, run on a test dataset and then predict results
     x_train,x_test,y_train,y_test = train_test_split(X,Y,test_size=.24,random_state=5440)
@@ -719,7 +735,8 @@ def run_cross_validation_on_classification_Boost(X, Y,scoring='accuracy',graph=F
     
     search.fit(X,Y)    
     best_params = search.best_params_
-    print(best_params)
+    print(graph_title,file=open('RQ1_hyperparameters','a'))
+    print(best_params,file=open('RQ1_hyperparameters','a'))
     
     #now that the best parameters are found, split the data, run on a test dataset and then predict results
     x_train,x_test,y_train,y_test = train_test_split(X,Y,test_size=.24,random_state=5440)
@@ -762,7 +779,8 @@ def run_RDA_classification(X,Y,graph=False,graph_title='Classification Graph'):
     #find the hyperparameters on all the data and capture them for use for training and testing
     search.fit(X,Y)    
     best_params = search.best_params_
-    print(best_params)    
+    print(graph_title,file=open('RQ1_hyperparameters','a'))
+    print(best_params,file=open('RQ1_hyperparameters','a'))
     
     #scale the X values for consistency (though may not have much effect for LDA as it would knn, PCA, gradient decent and ridge/Lasso...)
     scaler = StandardScaler()
@@ -780,7 +798,7 @@ def run_RDA_classification(X,Y,graph=False,graph_title='Classification Graph'):
     class_groups = len(model.coef_)
     
     if graph:
-        graph_it(y_test,pred_test,graph_title,RQ=4)
+        graph_it(y_test,pred_test,graph_title,RQ=1)
         for cg in range(class_groups):
             graph_feature(X.columns,model.coef_[cg],graph_title + ' ("'+ model.classes_[cg]+ '" class)',tree=False)
          

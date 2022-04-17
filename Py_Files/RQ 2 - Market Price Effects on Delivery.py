@@ -118,7 +118,8 @@ def run_linear(X,Y,graph=False,graph_title='Regression Graph'):
     x_scaled = scaler.fit_transform(X)       
     search.fit(x_scaled,Y)    
     best_params = search.best_params_
-    print(best_params)
+    print(graph_title,file=open('RQ2_hyperparameters','a'))
+    print(best_params,file=open('RQ2_hyperparameters','a'))
     
     #X = predictors, Y = response, log determines if we are using linear or logistic regression
     x_train,x_test,y_train,y_test = train_test_split(x_scaled,Y,test_size=.24,random_state=5440)   
@@ -159,7 +160,8 @@ def run_cross_validation_on_regression_RF(X, Y,graph=False,graph_title='Regressi
     
     search.fit(X,Y)    
     best_params = search.best_params_
-    print(best_params)
+    print(graph_title,file=open('RQ2_hyperparameters','a'))
+    print(best_params,file=open('RQ2_hyperparameters','a'))
     
     #now that the best parameters are found, split the data, run on a test dataset and then predict results
     x_train,x_test,y_train,y_test = train_test_split(X,Y,test_size=.24,random_state=5440)
@@ -201,7 +203,8 @@ def run_cross_validation_on_regression_Boost(X, Y,graph=False,graph_title='Regre
     
     search.fit(X,Y)    
     best_params = search.best_params_
-    print(best_params)
+    print(graph_title,file=open('RQ2_hyperparameters','a'))
+    print(best_params,file=open('RQ2_hyperparameters','a'))
     
     #now that the best parameters are found, split the data, run on a test dataset and then predict results
     x_train,x_test,y_train,y_test = train_test_split(X,Y,test_size=.24,random_state=5440)
@@ -243,7 +246,8 @@ def run_enet_regression(X,Y,graph=False,graph_title='Regression Graph'):
     x_scaled = scaler.fit_transform(X)       
     search.fit(x_scaled,Y)    
     best_params = search.best_params_
-    print(best_params)
+    print(graph_title,file=open('RQ2_hyperparameters','a'))
+    print(best_params,file=open('RQ2_hyperparameters','a'))
     
     #X = predictors, Y = response, log determines if we are using linear or logistic regression
     x_train,x_test,y_train,y_test = train_test_split(x_scaled,Y,test_size=.24,random_state=5440)   
@@ -271,8 +275,9 @@ def run_ridge_regression(X,Y,graph=False,graph_title='Regression Graph'):
     cv = RepeatedKFold(n_splits = 5,n_repeats=75,random_state=5440)  
     model = RidgeCV(alphas=[.0001,.0005,.001,.005,.01,.05,.1,.5,1.0,5,10,50,100,500,1000],cv=cv)
     model.fit(x_scaled,Y)
-    print(model.alpha_)
-    
+    print(graph_title,file=open('RQ2_hyperparameters','a'))
+    print(model.alpha_,file=open('RQ2_hyperparameters','a'))
+
     #X = predictors, Y = response, log determines if we are using linear or logistic regression
     x_train,x_test,y_train,y_test = train_test_split(x_scaled,Y,test_size=.24,random_state=5440)   
 
@@ -314,7 +319,8 @@ def run_logistic(X,Y,graph=False,graph_title='Classification Graph'):
     x_scaled = scaler.fit_transform(X)       
     search.fit(x_scaled,Y)    
     best_params = search.best_params_
-    print(best_params)
+    print(graph_title,file=open('RQ2_hyperparameters','a'))
+    print(best_params,file=open('RQ2_hyperparameters','a'))
     
     #now that the best parameters are found, split the data, run on a test dataset and then predict results
     x_train,x_test,y_train,y_test = train_test_split(x_scaled,Y,test_size=.24,random_state=5440)
@@ -358,7 +364,8 @@ def run_cross_validation_on_classification_RF(X, Y,graph=False,graph_title='Clas
     
     search.fit(X,Y)    
     best_params = search.best_params_
-    print(best_params)
+    print(graph_title,file=open('RQ2_hyperparameters','a'))
+    print(best_params,file=open('RQ2_hyperparameters','a'))
     
     #now that the best parameters are found, split the data, run on a test dataset and then predict results
     x_train,x_test,y_train,y_test = train_test_split(X,Y,test_size=.24,random_state=5440)
@@ -399,7 +406,8 @@ def run_cross_validation_on_classification_Boost(X, Y,scoring='accuracy',graph=F
     
     search.fit(X,Y)    
     best_params = search.best_params_
-    print(best_params)
+    print(graph_title,file=open('RQ2_hyperparameters','a'))
+    print(best_params,file=open('RQ2_hyperparameters','a'))
     
     #now that the best parameters are found, split the data, run on a test dataset and then predict results
     x_train,x_test,y_train,y_test = train_test_split(X,Y,test_size=.24,random_state=5440)
@@ -441,7 +449,8 @@ def run_RDA_classification(X,Y,graph=False,graph_title='Classification Graph'):
     #find the hyperparameters on all the data and capture them for use for training and testing
     search.fit(X,Y)    
     best_params = search.best_params_
-    print(best_params)    
+    print(graph_title,file=open('RQ2_hyperparameters','a'))
+    print(best_params,file=open('RQ2_hyperparameters','a'))
     
     #scale the X values for consistency (though may not have much effect for LDA as it would knn, PCA, gradient decent and ridge/Lasso...)
     scaler = StandardScaler()
