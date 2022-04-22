@@ -1,0 +1,44 @@
+Weather Only - Logistic Regression - Full
+OrderedDict([('fit_intercept', True), ('solver', 'newton-cg')])
+Weather Only - Logistic Regression - Full
+OrderedDict([('fit_intercept', True), ('solver', 'newton-cg')])
+Weather Only - Logistic Regression - Full
+OrderedDict([('fit_intercept', True), ('solver', 'newton-cg')])
+Weather Only - Logistic Regression - Full
+OrderedDict([('fit_intercept', True), ('solver', 'newton-cg')])
+Weather Only - Logistic Regression - Full
+OrderedDict([('fit_intercept', True), ('solver', 'newton-cg')])
+Weather Only - Logistic Regression - Full
+OrderedDict([('fit_intercept', True), ('solver', 'newton-cg')])
+Weather Only - Logistic Regression - Full
+OrderedDict([('fit_intercept', True), ('solver', 'newton-cg')])
+Weather Only - Logistic Regression - Full
+OrderedDict([('fit_intercept', True), ('solver', 'newton-cg')])
+Weather Only - Logistic Regression - Full
+OrderedDict([('fit_intercept', True), ('solver', 'newton-cg')])
+Weather Only - Logistic Regression - Full
+OrderedDict([('fit_intercept', True), ('solver', 'newton-cg')])
+Weather Only - Logistic Regression - Full
+OrderedDict([('fit_intercept', True), ('solver', 'newton-cg')])
+Weather Only - Logistic Regression - Full
+OrderedDict([('fit_intercept', True), ('solver', 'newton-cg')])
+Weather Only - Logistic Regression - Full
+OrderedDict([('fit_intercept', True), ('solver', 'newton-cg')])
+Weather Only - Logistic Regression - Full
+OrderedDict([('fit_intercept', True), ('solver', 'newton-cg')])
+Weather Only - Logistic Regression - Full
+OrderedDict([('fit_intercept', True), ('solver', 'newton-cg')])
+Weather Only - Logistic Regression - Full
+OrderedDict([('fit_intercept', True), ('solver', 'newton-cg')])
+Weather Only - Discriminant Analysis - Full
+OrderedDict([('shrinkage', 0.1), ('solver', 'eigen')])
+Weather Only - Discriminant Analysis - Full
+OrderedDict([('shrinkage', 0.1), ('solver', 'eigen')])
+Weather Only - Random Forests - Partial
+OrderedDict([('criterion', 'gini'), ('max_depth', 3), ('max_features', 'sqrt'), ('n_estimators', 1000)])
+Weather Only - Boosted Trees - Full
+OrderedDict([('criterion', 'squared_error'), ('max_depth', 6), ('max_features', 'sqrt'), ('n_estimators', 1250)])
+Weather Only - Random Forests - Partial
+OrderedDict([('criterion', 'gini'), ('max_depth', 3), ('max_features', 'sqrt'), ('n_estimators', 1000)])
+Weather Only - Boosted Trees - Full
+OrderedDict([('criterion', 'squared_error'), ('max_depth', 4), ('max_features', 'log2'), ('n_estimators', 1000)])

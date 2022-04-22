@@ -1,0 +1,12 @@
+Contract Soybeans - Random Forests - Partial
+OrderedDict([('criterion', 'entropy'), ('max_depth', 9), ('max_features', 'log2'), ('n_estimators', 1250)])
+Contract Soybeans - Boosted Trees - Full
+OrderedDict([('criterion', 'friedman_mse'), ('max_depth', 6), ('max_features', 'log2'), ('n_estimators', 500)])
+Contract Soybeans - Boosted Trees - Partial
+OrderedDict([('criterion', 'squared_error'), ('max_depth', 9), ('max_features', 'log2'), ('n_estimators', 1250)])
+Contract Corn - Random Forests - Partial
+OrderedDict([('criterion', 'entropy'), ('max_depth', 9), ('max_features', 'log2'), ('n_estimators', 500)])
+Contract Corn - Boosted Trees - Full
+OrderedDict([('criterion', 'friedman_mse'), ('max_depth', 9), ('max_features', 'sqrt'), ('n_estimators', 1000)])
+Contract Corn - Boosted Trees - Partial
+OrderedDict([('criterion', 'friedman_mse'), ('max_depth', 9), ('max_features', 'log2'), ('n_estimators', 500)])

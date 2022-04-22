@@ -415,7 +415,7 @@ end = timer()
 print(f'RDA Model on Sig P Complete in {end-start} seconds')
 
 start = timer()
-rf_accuracy_part,rf_auc_part = run_cross_validation_on_classification_RF(xs_part,ys_class,graph_title="Soybeans - Random Forests - Partial")
+rf_accuracy_part,rf_auc_part = run_cross_validation_on_classification_RF(xs_part,ys_class,graph=True,graph_title="Soybeans - Random Forests - Partial")
 end = timer()
 print(f'Random Forest Model on Data Subset Complete in {end-start} seconds')
 

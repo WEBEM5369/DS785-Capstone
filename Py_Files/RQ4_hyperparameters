@@ -1,0 +1,35 @@
+Soybeans - Logistic Regression - Partial
+OrderedDict([('fit_intercept', True), ('solver', 'newton-cg')])
+Soybeans - Logistic Regression - Sig P
+OrderedDict([('fit_intercept', True), ('solver', 'newton-cg')])
+Soybeans - Discriminant Analysis - Full
+OrderedDict([('shrinkage', 0.03), ('solver', 'lsqr')])
+Soybeans - Discriminant Analysis - Partial
+OrderedDict([('shrinkage', 0.01), ('solver', 'lsqr')])
+Soybeans - Discriminant Analysis - Sig P
+OrderedDict([('shrinkage', 0.1), ('solver', 'eigen')])
+Soybeans - Random Forests - Partial
+OrderedDict([('criterion', 'gini'), ('max_depth', 9), ('max_features', 'sqrt'), ('n_estimators', 1000)])
+Soybeans - Boosted Trees - Full
+OrderedDict([('criterion', 'friedman_mse'), ('max_depth', 6), ('max_features', 'sqrt'), ('n_estimators', 500)])
+Soybeans - Boosted Trees - Partial
+OrderedDict([('criterion', 'friedman_mse'), ('max_depth', 5), ('max_features', 'log2'), ('n_estimators', 1500)])
+
+
+Corn - Logistic Regression - Partial
+OrderedDict([('fit_intercept', True), ('solver', 'liblinear')])
+Corn - Logistic Regression - Sig P
+OrderedDict([('fit_intercept', True), ('solver', 'liblinear')])
+Corn - Discriminant Analysis - Full
+OrderedDict([('shrinkage', 0.76), ('solver', 'lsqr')])
+Corn - Discriminant Analysis - Partial
+OrderedDict([('shrinkage', 0.67), ('solver', 'lsqr')])
+Corn - Discriminant Analysis - Sig P
+OrderedDict([('shrinkage', 0.98), ('solver', 'eigen')])
+Corn - Random Forests - Partial
+OrderedDict([('criterion', 'gini'), ('max_depth', 9), ('max_features', 'sqrt'), ('n_estimators', 200)])
+Corn - Boosted Trees - Full
+OrderedDict([('criterion', 'squared_error'), ('max_depth', 1), ('max_features', 'log2'), ('n_estimators', 500)])
+Corn - Boosted Trees - Partial
+OrderedDict([('criterion', 'squared_error'), ('max_depth', 1), ('max_features', 'sqrt'), ('n_estimators', 500)])
+

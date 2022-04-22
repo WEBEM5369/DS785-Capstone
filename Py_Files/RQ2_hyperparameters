@@ -1,0 +1,48 @@
+Market Soybeans - Linear Regression - Partial
+OrderedDict([('fit_intercept', False), ('positive', False)])
+Market Soybeans - Lasso/ENet Regression - Full
+OrderedDict([('alpha', 1.0), ('fit_intercept', False), ('l1_ratio', 0.3)])
+Market Soybeans - Ridge Regression - Partial
+100.0
+Market Soybeans - Random Forests - Partial
+OrderedDict([('criterion', 'squared_error'), ('max_depth', 6), ('max_features', 0.375), ('n_estimators', 1000)])
+Market Soybeans - Boosted Trees - Full
+OrderedDict([('criterion', 'squared_error'), ('loss', 'squared_error'), ('max_depth', 1), ('max_features', 0.375), ('n_estimators', 700)])
+Market Soybeans - Boosted Trees - Partial
+OrderedDict([('criterion', 'friedman_mse'), ('loss', 'squared_error'), ('max_depth', 1), ('max_features', 0.375), ('n_estimators', 600)])
+Market Soybeans - Logistic Regression - Partial
+OrderedDict([('fit_intercept', False), ('solver', 'newton-cg')])
+Market Soybeans - Discriminant Analysis - Full
+OrderedDict([('shrinkage', 0.905), ('solver', 'lsqr')])
+Market Soybeans - Discriminant Analysis - Partial
+OrderedDict([('shrinkage', 0.93), ('solver', 'lsqr')])
+Market Soybeans - Random Forests - Partial
+OrderedDict([('criterion', 'entropy'), ('max_depth', 6), ('max_features', 'sqrt'), ('n_estimators', 1000)])
+Market Soybeans - Boosted Trees - Full
+OrderedDict([('criterion', 'friedman_mse'), ('max_depth', 1), ('max_features', 'log2'), ('n_estimators', 500)])
+Market Soybeans - Boosted Trees - Partial
+OrderedDict([('criterion', 'friedman_mse'), ('max_depth', 1), ('max_features', 'log2'), ('n_estimators', 1000)])
+Market Corn - Linear Regression - Partial
+OrderedDict([('fit_intercept', False), ('positive', True)])
+Market Corn - Lasso/ENet Regression - Full
+OrderedDict([('alpha', 5.0), ('fit_intercept', False), ('l1_ratio', 0.3)])
+Market Corn - Ridge Regression - Partial
+1000.0
+Market Corn - Random Forests - Partial
+OrderedDict([('criterion', 'squared_error'), ('max_depth', 9), ('max_features', 0.375), ('n_estimators', 1000)])
+Market Corn - Boosted Trees - Full
+OrderedDict([('criterion', 'friedman_mse'), ('loss', 'huber'), ('max_depth', 1), ('max_features', 0.25), ('n_estimators', 500)])
+Market Corn - Boosted Trees - Partial
+OrderedDict([('criterion', 'squared_error'), ('loss', 'huber'), ('max_depth', 1), ('max_features', 0.375), ('n_estimators', 600)])
+Market Corn - Logistic Regression - Partial
+OrderedDict([('fit_intercept', True), ('solver', 'newton-cg')])
+Market Corn - Discriminant Analysis - Full
+OrderedDict([('shrinkage', 0.23500000000000001), ('solver', 'lsqr')])
+Market Corn - Discriminant Analysis - Partial
+OrderedDict([('shrinkage', 0.33), ('solver', 'lsqr')])
+Market Corn - Random Forests - Partial
+OrderedDict([('criterion', 'entropy'), ('max_depth', 9), ('max_features', 'log2'), ('n_estimators', 200)])
+Market Corn - Boosted Trees - Full
+OrderedDict([('criterion', 'squared_error'), ('max_depth', 1), ('max_features', 'sqrt'), ('n_estimators', 750)])
+Market Corn - Boosted Trees - Partial
+OrderedDict([('criterion', 'friedman_mse'), ('max_depth', 2), ('max_features', 'sqrt'), ('n_estimators', 500)])

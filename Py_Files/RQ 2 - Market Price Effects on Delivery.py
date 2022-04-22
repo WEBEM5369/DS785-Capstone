@@ -51,7 +51,7 @@ def graph_it(y_true,y_pred,title="Graph",RQ=1):
 
 def graph_feature(names,fi,graph_title,tree=True,add_label=True):
     sort_key = fi.argsort()
-    plt.figure(figsize=(5,10))
+    plt.figure(figsize=(5,9))
     bars = plt.barh(names[sort_key],fi[sort_key],color='lightgrey',edgecolor='black')
     plt.title(graph_title)
     
@@ -291,7 +291,7 @@ def run_ridge_regression(X,Y,graph=False,graph_title='Regression Graph'):
     return(rmse_test,r2_test)
 
 
-# In[ ]:
+# In[2]:
 
 
 #models used for classification
@@ -309,7 +309,7 @@ def run_logistic(X,Y,graph=False,graph_title='Classification Graph'):
         search_spaces=hyper_params,
         n_jobs=-1,
         cv=cv,
-        n_iter=50,
+        n_iter=25,
         scoring="accuracy",
         verbose=0,
         random_state=5440
@@ -329,11 +329,11 @@ def run_logistic(X,Y,graph=False,graph_title='Classification Graph'):
     model.fit(x_train,y_train)
     pred_test = model.predict(x_test)
     test_score = model.score(x_test,y_test)
-    test_auc = roc_auc_score(y_test,model.predict_proba(x_test))      
+    test_auc = roc_auc_score(y_test,model.predict_proba(x_test), multi_class='ovr', average='weighted')      
     class_groups = len(model.coef_)    
       
     if graph:
-        graph_it(y_test,pred_test,graph_title,RQ=4)
+        graph_it(y_test,pred_test,graph_title,RQ=2)
         for cg in range(class_groups):
             graph_feature(X.columns,model.coef_[cg],graph_title + ' ("'+ model.classes_[cg]+ '" class)',tree=False)
 
@@ -377,7 +377,7 @@ def run_cross_validation_on_classification_RF(X, Y,graph=False,graph_title='Clas
     test_auc = roc_auc_score(y_test,model.predict_proba(x_test), multi_class='ovr', average='weighted')     
       
     if graph:
-        graph_it(y_test,pred_test,graph_title,RQ=1)
+        graph_it(y_test,pred_test,graph_title,RQ=2)
         graph_feature(X.columns,model.feature_importances_,graph_title)
 
     return(test_score,test_auc)
@@ -398,7 +398,7 @@ def run_cross_validation_on_classification_Boost(X, Y,scoring='accuracy',graph=F
         search_spaces=hyper_params,
         n_jobs=-1,
         cv=cv,
-        n_iter=150,
+        n_iter=125,
         scoring="accuracy",
         verbose=0,
         random_state=5440
@@ -431,7 +431,7 @@ def run_RDA_classification(X,Y,graph=False,graph_title='Classification Graph'):
     #first step is to use a Bayes Search algorithm to find the optimal hyperparameters
     #define hyperparameters to search
     hyper_params = {
-        'solver' : ['lsqr','eigen'],
+        'solver' : ['lsqr'],
         'shrinkage' : np.arange(0,1.005,.005)
     }
 
@@ -439,8 +439,8 @@ def run_RDA_classification(X,Y,graph=False,graph_title='Classification Graph'):
         estimator=LinearDiscriminantAnalysis(),
         search_spaces=hyper_params,
         n_jobs=-1,
-        cv=10,
-        n_iter=200,
+        cv=5,
+        n_iter=150,
         scoring="accuracy",
         verbose=0,
         random_state=5440
@@ -463,12 +463,12 @@ def run_RDA_classification(X,Y,graph=False,graph_title='Classification Graph'):
     #find the worth of the model  
     pred_test = cross_val_predict(model,x_test,y_test,cv=5,n_jobs=-1)
     pred_score = cross_val_score(model,x_test,y_test,cv=5,n_jobs=-1)
-    test_auc = roc_auc_score(y_test,model.predict_proba(x_test))     
+    test_auc = roc_auc_score(y_test,model.predict_proba(x_test), multi_class='ovr', average='weighted')     
     
     class_groups = len(model.coef_)
     
     if graph:
-        graph_it(y_test,pred_test,graph_title,RQ=4)
+        graph_it(y_test,pred_test,graph_title,RQ=2)
         for cg in range(class_groups):
             graph_feature(X.columns,model.coef_[cg],graph_title + ' ("'+ model.classes_[cg]+ '" class)',tree=False)
          
@@ -634,32 +634,32 @@ vif_calc(xc_part)
 #Soybeans Regression
 # With the regression functions defined, run the regressions and capture the RMSE and R-squared
 start = timer()
-linear_rmse,linear_r2 = run_linear(xs_part,ys_reg)
+linear_rmse,linear_r2 = run_linear(xs_part,ys_reg,graph=True,graph_title="Market Soybeans - Linear Regression - Partial")
 end = timer()
 print(f'Linear Model on Data Subset Complete in {end-start} seconds')
 
 start = timer()      
-enet_full_rmse,enet_full_r2 = run_enet_regression(xs_full,ys_reg)
+enet_full_rmse,enet_full_r2 = run_enet_regression(xs_full,ys_reg,graph=True,graph_title="Market Soybeans - Lasso/ENet Regression - Full")
 end = timer()
 print(f'Enet Regression Model on Full Dataset Complete in {end-start} seconds')
 
 start = timer()  
-ridge_part_rmse,ridge_part_r2 = run_ridge_regression(xs_part,ys_reg)
+ridge_part_rmse,ridge_part_r2 = run_ridge_regression(xs_part,ys_reg,graph=True,graph_title="Market Soybeans - Ridge Regression - Partial")
 end = timer()
 print(f'Ridge Regression Model on Data Subset Complete in {end-start} seconds')
 
 start = timer()  
-rfr_rmse,rfr_r2 = run_cross_validation_on_regression_RF(xs_part,ys_reg)
+rfr_rmse,rfr_r2 = run_cross_validation_on_regression_RF(xs_part,ys_reg,graph=True,graph_title="Market Soybeans - Random Forests - Partial")
 end = timer()
 print(f'Random Forest Model on Data Subset Complete in {end-start} seconds')
 
 start = timer()  
-boost_rmse,boost_r2 = run_cross_validation_on_regression_Boost(xs_full,ys_reg)
+boost_rmse,boost_r2 = run_cross_validation_on_regression_Boost(xs_full,ys_reg,graph=True,graph_title="Market Soybeans - Boosted Trees - Full")
 end = timer()
 print(f'Boosted Trees Model on Full Dataset Complete in {end-start} seconds')
 
 start = timer()  
-boost_part_rmse,boost_part_r2 = run_cross_validation_on_regression_Boost(xs_part,ys_reg)
+boost_part_rmse,boost_part_r2 = run_cross_validation_on_regression_Boost(xs_part,ys_reg,graph=True,graph_title="Market Soybeans - Boosted Trees - Partial")
 end = timer()
 print(f'Boosted Trees Model on Data Subset Complete in {end-start} seconds')
 
@@ -684,32 +684,32 @@ sort_results.to_excel('RQ2_Soybeans_Regression.xlsx')
 
 #Soybeans Classfication
 start = timer()
-log_accuracy_part,log_auc_part = run_logistic(xs_part,ys_class,graph=True)
+log_accuracy_part,log_auc_part = run_logistic(xs_part,ys_class,graph=True,graph_title="Market Soybeans - Logistic Regression - Partial")
 end = timer()
 print(f'Logistic Model on Data Subset Complete in {end-start} seconds')
 
 start = timer()
-rda_accuracy_full,rda_auc_full = run_RDA_classification(xs_full,ys_class,graph=True)
+rda_accuracy_full,rda_auc_full = run_RDA_classification(xs_full,ys_class,graph=True,graph_title="Market Soybeans - Discriminant Analysis - Full")
 end = timer()
 print(f'RDA Model on Full Data Complete in {end-start} seconds')
 
 start = timer()
-rda_accuracy_part,rda_auc_part = run_RDA_classification(xs_part,ys_class,graph=True)
+rda_accuracy_part,rda_auc_part = run_RDA_classification(xs_part,ys_class,graph=True,graph_title="Market Soybeans - Discriminant Analysis - Partial")
 end = timer()
 print(f'RDA Model on Data Subset Complete in {end-start} seconds')
 
 start = timer()
-rf_accuracy_part,rf_auc_part = run_cross_validation_on_classification_RF(xs_part,ys_class,graph=True)
+rf_accuracy_part,rf_auc_part = run_cross_validation_on_classification_RF(xs_part,ys_class,graph=True,graph_title="Market Soybeans - Random Forests - Partial")
 end = timer()
 print(f'Random Forest Model on Data Subset Complete in {end-start} seconds')
 
 start = timer()
-boost_accuracy_full,boo_auc_full = run_cross_validation_on_classification_Boost(xs_full,ys_class,graph=True)
+boost_accuracy_full,boo_auc_full = run_cross_validation_on_classification_Boost(xs_full,ys_class,graph=True,graph_title="Market Soybeans - Boosted Trees - Full")
 end = timer()
 print(f'Boosted Trees Model on Full Dataset Complete in {end-start} seconds')
 
 start = timer()
-boost_accuracy_part,boo_auc_part = run_cross_validation_on_classification_Boost(xs_part,ys_class,graph=True)
+boost_accuracy_part,boo_auc_part = run_cross_validation_on_classification_Boost(xs_part,ys_class,graph=True,graph_title="Market Soybeans - Boosted Trees - Partial")
 end = timer()
 print(f'Boosted Trees Model on Data Subset Complete in {end-start} seconds')
 
@@ -736,32 +736,32 @@ sort_results.to_excel('RQ2_Soybean_Classification.xlsx')
 #Corn Regression
 # With the regression functions defined, run the regressions and capture the RMSE and R-squared
 start = timer()
-linear_rmse,linear_r2 = run_linear(xc_part,yc_reg)
+linear_rmse,linear_r2 = run_linear(xc_part,yc_reg,graph=True,graph_title="Market Corn - Linear Regression - Partial")
 end = timer()
 print(f'Linear Model on Data Subset Complete in {end-start} seconds')
 
 start = timer()      
-enet_full_rmse,enet_full_r2 = run_enet_regression(xc_full,yc_reg)
+enet_full_rmse,enet_full_r2 = run_enet_regression(xc_full,yc_reg,graph=True,graph_title="Market Corn - Lasso/ENet Regression - Full")
 end = timer()
 print(f'Enet Regression Model on Full Dataset Complete in {end-start} seconds')
 
 start = timer()  
-ridge_part_rmse,ridge_part_r2 = run_ridge_regression(xc_part,yc_reg)
+ridge_part_rmse,ridge_part_r2 = run_ridge_regression(xc_part,yc_reg,graph=True,graph_title="Market Corn - Ridge Regression - Partial")
 end = timer()
 print(f'Ridge Regression Model on Data Subset Complete in {end-start} seconds')
 
 start = timer()  
-rfr_rmse,rfr_r2 = run_cross_validation_on_regression_RF(xc_part,yc_reg)
+rfr_rmse,rfr_r2 = run_cross_validation_on_regression_RF(xc_part,yc_reg,graph=True,graph_title="Market Corn - Random Forests - Partial")
 end = timer()
 print(f'Random Forest Model on Data Subset Complete in {end-start} seconds')
 
 start = timer()  
-boost_rmse,boost_r2 = run_cross_validation_on_regression_Boost(xc_full,yc_reg)
+boost_rmse,boost_r2 = run_cross_validation_on_regression_Boost(xc_full,yc_reg,graph=True,graph_title="Market Corn - Boosted Trees - Full")
 end = timer()
 print(f'Boosted Trees Model on Full Dataset Complete in {end-start} seconds')
 
 start = timer()  
-boost_part_rmse,boost_part_r2 = run_cross_validation_on_regression_Boost(xc_part,yc_reg)
+boost_part_rmse,boost_part_r2 = run_cross_validation_on_regression_Boost(xc_part,yc_reg,graph=True,graph_title="Market Corn - Boosted Trees - Partial")
 end = timer()
 print(f'Boosted Trees Model on Data Subset Complete in {end-start} seconds')
 
@@ -786,32 +786,32 @@ c_sort_results.to_excel('RQ2_Corn_Regression.xlsx')
 
 #Corn Classfication
 start = timer()
-log_accuracy_part,log_auc_part = run_logistic(xc_part,yc_class,graph=True)
+log_accuracy_part,log_auc_part = run_logistic(xc_part,yc_class,graph=True,graph_title="Market Corn - Logistic Regression - Partial")
 end = timer()
 print(f'Logistic Model on Data Subset Complete in {end-start} seconds')
 
 start = timer()
-rda_accuracy_full,rda_auc_full = run_RDA_classification(xc_full,yc_class,graph=True)
+rda_accuracy_full,rda_auc_full = run_RDA_classification(xc_full,yc_class,graph=True,graph_title="Market Corn - Discriminant Analysis - Full")
 end = timer()
 print(f'RDA Model on Full Data Complete in {end-start} seconds')
 
 start = timer()
-rda_accuracy_part,rda_auc_part = run_RDA_classification(xc_part,yc_class,graph=True)
+rda_accuracy_part,rda_auc_part = run_RDA_classification(xc_part,yc_class,graph=True,graph_title="Market Corn - Discriminant Analysis - Partial")
 end = timer()
 print(f'RDA Model on Data Subset Complete in {end-start} seconds')
 
 start = timer()
-rf_accuracy_part,rf_auc_part = run_cross_validation_on_classification_RF(xc_part,yc_class,graph=True)
+rf_accuracy_part,rf_auc_part = run_cross_validation_on_classification_RF(xc_part,yc_class,graph=True,graph_title="Market Corn - Random Forests - Partial")
 end = timer()
 print(f'Random Forest Model on Data Subset Complete in {end-start} seconds')
 
 start = timer()
-boost_accuracy_full,boo_auc_full = run_cross_validation_on_classification_Boost(xc_full,yc_class,graph=True)
+boost_accuracy_full,boo_auc_full = run_cross_validation_on_classification_Boost(xc_full,yc_class,graph=True,graph_title="Market Corn - Boosted Trees - Full")
 end = timer()
 print(f'Boosted Trees Model on Full Dataset Complete in {end-start} seconds')
 
 start = timer()
-boost_accuracy_part,boo_auc_part = run_cross_validation_on_classification_Boost(xc_part,yc_class,graph=True)
+boost_accuracy_part,boo_auc_part = run_cross_validation_on_classification_Boost(xc_part,yc_class,graph=True,graph_title="Market Corn - Boosted Trees - Partial")
 end = timer()
 print(f'Boosted Trees Model on Data Subset Complete in {end-start} seconds')
 
@@ -821,12 +821,12 @@ print(f'Boosted Trees Model on Data Subset Complete in {end-start} seconds')
 
 #corn Classification Results
 #create a data frame of the results for analysis
-c_result_aa_list  = [['Logistic Run 1','Partial',log_accuracy_part]
-                    ,['RDA Run 1','Full',rda_accuracy_full]
-                    ,['RDA Run 2','Partial',rda_accuracy_part]
-                    ,['Random Forest Run 1','Partial',rf_accuracy_part]
-                    ,['Boosted Trees Run 1','Full',boost_accuracy_full]
-                    ,['Boosted Trees Run 2','Partial',boost_accuracy_part]]
+c_result_aa_list  = [['Logistic Run 1','Partial',log_accuracy_part,log_auc_part]
+                    ,['RDA Run 1','Full',rda_accuracy_full,rda_auc_full]
+                    ,['RDA Run 2','Partial',rda_accuracy_part,rda_auc_part]
+                    ,['Random Forest Run 1','Partial',rf_accuracy_part,rf_auc_part]
+                    ,['Boosted Trees Run 1','Full',boost_accuracy_full,boo_auc_full]
+                    ,['Boosted Trees Run 2','Partial',boost_accuracy_part,boo_auc_part]]
 results_above_average = pd.DataFrame(c_result_aa_list,columns=['Model','Dataset','Accuracy','AUC'])
 c_sort_results = results_above_average.sort_values(['AUC','Accuracy'],ascending=[False,False])
 c_sort_results.to_excel('RQ2_Corn_Classification.xlsx')

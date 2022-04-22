@@ -1,0 +1,4 @@
+Contract Soybeans - Random Forests - Partial
+OrderedDict([('criterion', 'entropy'), ('max_depth', 8), ('max_features', 'sqrt'), ('n_estimators', 750)])
+Contract Soybeans - Random Forests - Partial
+OrderedDict([('criterion', 'gini'), ('max_depth', 7), ('max_features', 'log2'), ('n_estimators', 500)])

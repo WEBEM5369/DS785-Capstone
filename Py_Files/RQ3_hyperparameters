@@ -1,0 +1,60 @@
+Contract Soybeans - Lasso/ENet Regression - Full
+OrderedDict([('alpha', 0.01), ('fit_intercept', True), ('l1_ratio', 1.0)])
+Contract Soybeans - Random Forests - Full
+OrderedDict([('criterion', 'gini'), ('max_depth', 9), ('max_features', 'sqrt'), ('n_estimators', 500)])
+Contract Corn - Ridge Regression - Full
+0.001
+Contract Corn - Boosted Trees - Full
+OrderedDict([('criterion', 'squared_error'), ('max_depth', 6), ('max_features', 'sqrt'), ('n_estimators', 500)])
+Contract Soybeans - Linear Regression - Partial
+OrderedDict([('fit_intercept', True), ('positive', False)])
+Contract Soybeans - Lasso/ENet Regression - Full
+OrderedDict([('alpha', 0.0001), ('fit_intercept', True), ('l1_ratio', 1.0)])
+Contract Soybeans - Lasso/ENet Regression - Partial
+OrderedDict([('alpha', 0.05), ('fit_intercept', True), ('l1_ratio', 0.7)])
+Contract Soybeans - Ridge Regression - Partial
+500.0
+Contract Soybeans - Random Forests - Partial
+OrderedDict([('criterion', 'squared_error'), ('max_depth', 9), ('max_features', 0.375), ('n_estimators', 200)])
+Contract Soybeans - Boosted Trees - Full
+OrderedDict([('criterion', 'squared_error'), ('loss', 'huber'), ('max_depth', 5), ('max_features', 0.3333), ('n_estimators', 1000)])
+Contract Soybeans - Boosted Trees - Partial
+OrderedDict([('criterion', 'squared_error'), ('loss', 'huber'), ('max_depth', 5), ('max_features', 0.375), ('n_estimators', 600)])
+Contract Soybeans - Logistic Regression - Partial
+OrderedDict([('fit_intercept', True), ('solver', 'newton-cg')])
+Contract Soybeans - Discriminant Analysis - Full
+OrderedDict([('shrinkage', 0.47000000000000003), ('solver', 'lsqr')])
+Contract Soybeans - Discriminant Analysis - Partial
+OrderedDict([('shrinkage', 0.23), ('solver', 'lsqr')])
+Contract Soybeans - Random Forests - Partial
+OrderedDict([('criterion', 'entropy'), ('max_depth', 9), ('max_features', 'log2'), ('n_estimators', 1000)])
+Contract Soybeans - Boosted Trees - Full
+OrderedDict([('criterion', 'squared_error'), ('max_depth', 4), ('max_features', 'sqrt'), ('n_estimators', 1250)])
+Contract Soybeans - Boosted Trees - Partial
+OrderedDict([('criterion', 'friedman_mse'), ('max_depth', 5), ('max_features', 'sqrt'), ('n_estimators', 500)])
+Contract Corn - Linear Regression - Partial
+OrderedDict([('fit_intercept', True), ('positive', False)])
+Contract Corn - Lasso/ENet Regression - Full
+OrderedDict([('alpha', 0.005), ('fit_intercept', True), ('l1_ratio', 1.0)])
+Contract Corn - Lasso/ENet Regression - Partial
+OrderedDict([('alpha', 0.05), ('fit_intercept', True), ('l1_ratio', 1.0)])
+Contract Corn - Ridge Regression - Partial
+100.0
+Contract Corn - Random Forests - Partial
+OrderedDict([('criterion', 'squared_error'), ('max_depth', 5), ('max_features', 0.25), ('n_estimators', 200)])
+Contract Corn - Boosted Trees - Full
+OrderedDict([('criterion', 'friedman_mse'), ('loss', 'huber'), ('max_depth', 6), ('max_features', 0.25), ('n_estimators', 500)])
+Contract Corn - Boosted Trees - Partial
+OrderedDict([('criterion', 'squared_error'), ('loss', 'huber'), ('max_depth', 5), ('max_features', 0.25), ('n_estimators', 1000)])
+Contract Corn - Logistic Regression - Partial
+OrderedDict([('fit_intercept', True), ('solver', 'newton-cg')])
+Contract Corn - Discriminant Analysis - Full
+OrderedDict([('shrinkage', 0.01), ('solver', 'lsqr')])
+Contract Corn - Discriminant Analysis - Partial
+OrderedDict([('shrinkage', 0.55), ('solver', 'lsqr')])
+Contract Corn - Random Forests - Partial
+OrderedDict([('criterion', 'entropy'), ('max_depth', 9), ('max_features', 'log2'), ('n_estimators', 1000)])
+Contract Corn - Boosted Trees - Full
+OrderedDict([('criterion', 'squared_error'), ('max_depth', 7), ('max_features', 'sqrt'), ('n_estimators', 500)])
+Contract Corn - Boosted Trees - Partial
+OrderedDict([('criterion', 'squared_error'), ('max_depth', 6), ('max_features', 'log2'), ('n_estimators', 750)])
